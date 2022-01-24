@@ -1,41 +1,41 @@
 /* eslint no-param-reassign: ["off"] */
-const inquirer = require('inquirer');
+const inquirer = require("inquirer");
 
 const questions = [
   {
-    type: 'checkbox',
-    name: 'type',
-    message: 'What type of the app are you targeting?',
+    type: "checkbox",
+    name: "type",
+    message: "What type of the app are you targeting?",
     choices: [
       {
-        name: 'Simple web app',
-        value: 'web',
+        name: "Simple web app",
+        value: "web",
         checked: true,
       },
       {
-        name: 'PWA (Progressive Web App)',
-        value: 'pwa',
+        name: "PWA (Progressive Web App)",
+        value: "pwa",
       },
       {
-        name: 'Cordova app (targets native iOS and Android apps, or native desktop app with Electron)',
-        value: 'cordova',
+        name: "Cordova app (targets native iOS and Android apps, or native desktop app with Electron)",
+        value: "cordova",
       },
     ],
     validate(input) {
       return new Promise((resolve, reject) => {
-        if (!input || !input.length) reject(new Error('App type is required!'));
+        if (!input || !input.length) reject(new Error("App type is required!"));
         else resolve(true);
       });
     },
   },
   {
-    type: 'input',
-    name: 'name',
-    message: 'App (project) name:',
-    default: 'My App',
+    type: "input",
+    name: "name",
+    message: "App (project) name:",
+    default: "My App",
     validate(input) {
       return new Promise((resolve, reject) => {
-        if (!input) reject(new Error('App name is required'));
+        if (!input) reject(new Error("App name is required"));
         else resolve(true);
       });
     },
@@ -43,48 +43,52 @@ const questions = [
 
   // Cordova Questions
   {
-    type: 'input',
-    name: 'pkg',
-    message: 'App package (Bundle ID):',
-    default: 'io.framework7.myapp',
-    when: (opts) => opts.type.indexOf('cordova') >= 0,
+    type: "input",
+    name: "pkg",
+    message: "App package (Bundle ID):",
+    default: "io.framework7.myapp",
+    when: (opts) => opts.type.indexOf("cordova") >= 0,
     validate(input) {
       return new Promise((resolve, reject) => {
-        if (!input) reject(new Error('App package (Bundle ID) is required for cordova app'));
+        if (!input)
+          reject(
+            new Error("App package (Bundle ID) is required for cordova app")
+          );
         else resolve(true);
       });
     },
   },
   {
-    type: 'checkbox',
-    name: 'cordovaPlatforms',
-    message: 'Target Cordova platform:',
-    when: (opts) => opts.type.indexOf('cordova') >= 0,
+    type: "checkbox",
+    name: "cordovaPlatforms",
+    message: "Target Cordova platform:",
+    when: (opts) => opts.type.indexOf("cordova") >= 0,
     choices: [
       {
-        name: 'iOS',
-        value: 'ios',
+        name: "iOS",
+        value: "ios",
         checked: true,
       },
       {
-        name: 'Android',
-        value: 'android',
+        name: "Android",
+        value: "android",
         checked: true,
       },
       {
-        name: 'Electron (native desktop app)',
-        value: 'electron',
+        name: "Electron (native desktop app)",
+        value: "electron",
         checked: false,
       },
       {
-        name: 'macOS (native macOS desktop app)',
-        value: 'osx',
+        name: "macOS (native macOS desktop app)",
+        value: "osx",
         checked: false,
       },
     ],
     validate(input) {
       return new Promise((resolve, reject) => {
-        if (!input || !input.length) reject(new Error('Target platform is required for cordova app'));
+        if (!input || !input.length)
+          reject(new Error("Target platform is required for cordova app"));
         else resolve(true);
       });
     },
@@ -92,74 +96,74 @@ const questions = [
 
   // Framework
   {
-    type: 'list',
-    name: 'framework',
-    message: 'What type of framework do you prefer?',
+    type: "list",
+    name: "framework",
+    message: "What type of framework do you prefer?",
     choices: [
       {
-        name: 'Framework7 Core',
-        value: 'core',
+        name: "Framework7 Core",
+        value: "core",
       },
       {
-        name: 'Framework7 with Vue.js',
-        value: 'vue',
+        name: "Framework7 with Vue.js",
+        value: "vue",
       },
       {
-        name: 'Framework7 with React',
-        value: 'react',
+        name: "Framework7 with React",
+        value: "react",
       },
       {
-        name: 'Framework7 with Svelte',
-        value: 'svelte',
+        name: "Framework7 with Svelte",
+        value: "svelte",
       },
     ],
   },
 
   // Template
   {
-    type: 'list',
-    name: 'template',
-    message: 'Choose starter template:',
+    type: "list",
+    name: "template",
+    message: "Choose starter template:",
     choices: [
       {
-        name: 'Blank',
-        value: 'blank',
+        name: "Blank",
+        value: "blank",
       },
       {
-        name: 'Single View',
-        value: 'single-view',
+        name: "Single View",
+        value: "single-view",
       },
       {
-        name: 'Tabbed Views (Tabs)',
-        value: 'tabs',
+        name: "Tabbed Views (Tabs)",
+        value: "tabs",
       },
       {
-        name: 'Split View (Split Panel)',
-        value: 'split-view',
+        name: "Split View (Split Panel)",
+        value: "split-view",
       },
     ],
   },
 
   // Bundler
   {
-    type: 'list',
-    name: 'bundler',
-    message: 'Should we setup project with bundler?',
-    when: (opts) => opts.framework === 'core',
+    type: "list",
+    name: "bundler",
+    message: "Should we setup project with bundler?",
+    when: (opts) => opts.framework === "core",
     default(opts) {
-      if (opts.framework === 'core') return false;
-      return 'webpack';
+      if (opts.framework === "core") return false;
+      return "webpack";
     },
     choices(opts) {
       const choices = [
         {
-          name: 'Webpack (recommended)',
-          value: 'webpack',
+          name: "Webpack (recommended)",
+          value: "webpack",
         },
       ];
-      if (opts.framework === 'core') {
+      if (opts.framework === "core") {
         choices.unshift({
-          name: 'No bundler',
+          name: "No bundler",
           value: false,
         });
       }
@@ -167,76 +171,77 @@ const questions = [
     },
   },
   {
-    type: 'list',
-    name: 'cssPreProcessor',
-    message: 'Do you want to setup CSS Pre-Processor',
-    when: (opts) => opts.bundler === 'webpack' || opts.framework !== 'core',
+    type: "list",
+    name: "cssPreProcessor",
+    message: "Do you want to setup CSS Pre-Processor",
+    when: (opts) => opts.bundler === "webpack" || opts.framework !== "core",
     default: false,
     choices: [
       {
-        name: 'No, i am good with CSS',
+        name: "No, i am good with CSS",
         value: false,
       },
       {
-        name: 'Less',
-        value: 'less',
+        name: "Less",
+        value: "less",
       },
       {
-        name: 'Stylus',
-        value: 'stylus',
+        name: "Stylus",
+        value: "stylus",
       },
       {
-        name: 'SCSS (SASS)',
-        value: 'scss',
+        name: "SCSS (SASS)",
+        value: "scss",
       },
     ],
   },
 
   // Color
   {
-    type: 'list',
-    name: 'themingCustomColor',
-    message: 'Do you want to specify custom theme color?',
+    type: "list",
+    name: "themingCustomColor",
+    message: "Do you want to specify custom theme color?",
     choices: [
       {
-        name: 'No, use default color theme',
+        name: "No, use default color theme",
         value: false,
       },
       {
-        name: 'Yes, i want to specify my brand color',
+        name: "Yes, i want to specify my brand color",
         value: true,
       },
     ],
   },
   {
-    type: 'input',
-    name: 'themingColor',
-    message: 'Enter custom theme color in HEX format (e.g. ff0000)',
+    type: "input",
+    name: "themingColor",
+    message: "Enter custom theme color in HEX format (e.g. ff0000)",
     when: (opts) => opts.themingCustomColor === true,
     validate(input) {
       return new Promise((resolve, reject) => {
-        const num = input.replace(/#/g, '');
+        const num = input.replace(/#/g, "");
         if (num.length === 3 || num.length === 6) resolve(true);
-        else reject(new Error('It doesn\'t look like a correct HEX number'));
+        else reject(new Error("It doesn't look like a correct HEX number"));
       });
     },
     filter(input) {
-      return input.replace(/#/g, '');
+      return input.replace(/#/g, "");
     },
   },
   // Bundler
   {
-    type: 'list',
-    name: 'themingIconFonts',
-    message: 'Do you want to include Framework7 Icons and Material Icons icon fonts?',
+    type: "list",
+    name: "themingIconFonts",
+    message:
+      "Do you want to include Framework7 Icons and Material Icons icon fonts?",
     default: true,
     choices: [
       {
-        name: 'Yes, include icon fonts',
+        name: "Yes, include icon fonts",
         value: true,
       },
       {
-        name: 'No, i want to use my own custom icons',
+        name: "No, i want to use my own custom icons",
         value: false,
       },
     ],
@@ -245,24 +250,27 @@ const questions = [
 
 module.exports = function getOptions() {
   return inquirer.prompt(questions).then((options) => {
-    if (options.framework !== 'core' && !options.bundler) {
-      options.bundler = 'webpack'; // eslint-disable-line
+    if (options.framework !== "core" && !options.bundler) {
+      options.bundler = "webpack"; // eslint-disable-line
     }
-    if (options.type.indexOf('cordova') >= 0) {
+    if (options.type.indexOf("cordova") >= 0) {
       options.cordova = {
-        folder: 'cordova',
+        folder: "cordova",
         platforms: options.cordovaPlatforms,
       };
-      if (options.cordovaPlatforms.indexOf('ios') >= 0 || options.cordovaPlatforms.indexOf('android') >= 0) {
+      if (
+        options.cordovaPlatforms.indexOf("ios") >= 0 ||
+        options.cordovaPlatforms.indexOf("android") >= 0
+      ) {
         options.cordova.plugins = [
-          'cordova-plugin-statusbar',
-          'cordova-plugin-keyboard',
-          'cordova-plugin-splashscreen',
+          "cordova-plugin-statusbar",
+          "cordova-plugin-keyboard",
+          "cordova-plugin-splashscreen",
         ];
       }
       delete options.cordovaPlatforms;
     }
-    if (options.bundler === 'webpack') {
+    if (options.bundler === "webpack") {
       options.webpack = {
         developmentSourceMap: true,
         productionSourceMap: true,
@@ -273,7 +281,10 @@ module.exports = function getOptions() {
     }
     options.theming = {
       customColor: options.themingCustomColor,
-      color: options.themingCustomColor && options.themingColor ? `#${options.themingColor}` : '#007aff',
+      color:
+        options.themingCustomColor && options.themingColor
+          ? `#${options.themingColor}`
+          : "#007aff",
       darkTheme: false,
       iconFonts: options.themingIconFonts,
       fillBars: false,
@@ -283,8 +294,8 @@ module.exports = function getOptions() {
     delete options.themingColor;
     delete options.themingIconFonts;
 
-    if (options.type.indexOf('pwa') >= 0 && options.type.indexOf('web') < 0) {
-      options.type.push('web');
+    if (options.type.indexOf("pwa") >= 0 && options.type.indexOf("web") < 0) {
+      options.type.push("web");
     }
     return Promise.resolve(options);
   });
