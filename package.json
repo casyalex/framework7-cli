@@ -25,6 +25,9 @@
     "android"
   ],
   "author": "Vladimir Kharlampidi",
+  "contributors": [
+    "Alex Xie"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/framework7io/framework7-cli/issues"
